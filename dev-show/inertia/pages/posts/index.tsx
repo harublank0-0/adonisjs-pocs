@@ -1,5 +1,6 @@
 import type { InertiaProps } from '~/types'
 import type { Data } from '@generated/data'
+import { Link } from '@adonisjs/inertia/react'
 
 type PageProps = InertiaProps<{
   posts: Data.Post[]
@@ -30,7 +31,14 @@ export default function Index(props: PageProps) {
 
             <span>.</span>
             <div>
-              <a href={`/posts/${post.id}`}>View comments</a>
+              <Link
+                route="posts.show"
+                routeParams={{
+                  id: post.id,
+                }}
+              >
+                View Comments
+              </Link>
             </div>
           </div>
         </div>

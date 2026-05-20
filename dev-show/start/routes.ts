@@ -14,6 +14,7 @@ import router from '@adonisjs/core/services/router'
 router.on('/').renderInertia('home', {}).as('home')
 
 router.get('/posts', [controllers.Posts, 'index'])
+router.get('/posts/:id', [controllers.Posts, 'show'])
 
 router
   .group(() => {
