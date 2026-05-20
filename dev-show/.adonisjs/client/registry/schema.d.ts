@@ -59,12 +59,24 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/posts/create'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/post').createPostValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').createPostValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'comments.store': {
+    methods: ["POST"]
+    pattern: '/posts/:id/comments'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').createCommentValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').createCommentValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'new_account.create': {

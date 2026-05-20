@@ -9,6 +9,7 @@ export type ScannedRoutes = {
     'posts.index': { paramsTuple?: []; params?: {} }
     'posts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'posts.store': { paramsTuple?: []; params?: {} }
+    'comments.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'new_account.store': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
@@ -33,6 +34,7 @@ export type ScannedRoutes = {
   }
   POST: {
     'posts.store': { paramsTuple?: []; params?: {} }
+    'comments.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'new_account.store': { paramsTuple?: []; params?: {} }
     'session.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }

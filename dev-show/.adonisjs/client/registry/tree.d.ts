@@ -9,6 +9,9 @@ export interface ApiDefinition {
     show: typeof routes['posts.show']
     store: typeof routes['posts.store']
   }
+  comments: {
+    store: typeof routes['comments.store']
+  }
   newAccount: {
     create: typeof routes['new_account.create']
     store: typeof routes['new_account.store']

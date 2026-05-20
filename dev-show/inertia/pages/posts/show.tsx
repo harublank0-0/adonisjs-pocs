@@ -1,5 +1,6 @@
 import type { InertiaProps } from '~/types'
 import type { Data } from '@generated/data'
+import { Form } from '@adonisjs/inertia/react'
 
 type PageProps = InertiaProps<{
   post: Data.Post
@@ -30,6 +31,30 @@ export default function PostsShow(props: PageProps) {
 
         <div className="post-comments">
           <h2>Comments</h2>
+
+          <div className="post-comment-form">
+            <Form route="comments.store" routeParams={{ id: post.id }}>
+              {({ errors }) => (
+                <>
+                  <div>
+                    <textarea
+                      name="content"
+                      rows={3}
+                      placeholder="Share your thoughts..."
+                      data-invalid={errors.content ? 'true' : undefined}
+                    />
+                    {errors.content && <div>{errors.content}</div>}
+                  </div>
+
+                  <div>
+                    <button type="submit" className="button">
+                      Post comment
+                    </button>
+                  </div>
+                </>
+              )}
+            </Form>
+          </div>
 
           {post.comments && post.comments.length > 0 ? (
             post.comments.map((comment) => (
