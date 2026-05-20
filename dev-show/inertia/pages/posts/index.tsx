@@ -6,7 +6,7 @@ type PageProps = InertiaProps<{
   posts: Data.Post[]
 }>
 
-export default function Index(props: PageProps) {
+export default function PostsIndex(props: PageProps) {
   const { posts } = props
 
   return (

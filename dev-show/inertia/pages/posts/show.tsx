@@ -5,7 +5,7 @@ type PageProps = InertiaProps<{
   post: Data.Post
 }>
 
-export default function Show(props: PageProps) {
+export default function PostsShow(props: PageProps) {
   const { post } = props
 
   return (

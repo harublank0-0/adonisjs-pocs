@@ -12,6 +12,12 @@ const routes = {
     tokens: [{"old":"/","type":0,"val":"/","end":""}],
     types: placeholder as Registry['home']['types'],
   },
+  'posts.create': {
+    methods: ["GET","HEAD"],
+    pattern: '/posts/create',
+    tokens: [{"old":"/posts/create","type":0,"val":"posts","end":""},{"old":"/posts/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['posts.create']['types'],
+  },
   'posts.index': {
     methods: ["GET","HEAD"],
     pattern: '/posts',
@@ -23,6 +29,12 @@ const routes = {
     pattern: '/posts/:id',
     tokens: [{"old":"/posts/:id","type":0,"val":"posts","end":""},{"old":"/posts/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['posts.show']['types'],
+  },
+  'posts.store': {
+    methods: ["POST"],
+    pattern: '/posts/create',
+    tokens: [{"old":"/posts/create","type":0,"val":"posts","end":""},{"old":"/posts/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['posts.store']['types'],
   },
   'new_account.create': {
     methods: ["GET","HEAD"],
