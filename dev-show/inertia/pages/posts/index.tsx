@@ -13,8 +13,10 @@ export default function PostsIndex(props: PageProps) {
     <div className="container">
       <div className="posts-list-title">
         <h1>Posts</h1>
+        <Link route="posts.create" className="button">
+          Create new post
+        </Link>
       </div>
-
       {posts.map((post) => (
         <div key={post.id} className="post-item">
           <h2>{post.title}</h2>

@@ -1,6 +1,5 @@
 import type { InertiaProps } from '~/types'
-import type { Data } from '@generated/data'
-import { Form } from '@adonisjs/inertia/react'
+import { Form, Link } from '@adonisjs/inertia/react'
 
 type PageProps = InertiaProps<{}>
 
@@ -8,6 +7,8 @@ export default function PostsCreate({}: PageProps) {
   return (
     <div className="form-container">
       <div>
+        <Link route="posts.index">&lsaquo; Go back to posts listing</Link>
+
         <h1>Share your creation</h1>
         <p>Share the URL and a short summary of your creation </p>
       </div>

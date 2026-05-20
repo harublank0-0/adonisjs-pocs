@@ -1,6 +1,6 @@
 import type { InertiaProps } from '~/types'
 import type { Data } from '@generated/data'
-import { Form } from '@adonisjs/inertia/react'
+import { Form, Link } from '@adonisjs/inertia/react'
 
 type PageProps = InertiaProps<{
   post: Data.Post
@@ -11,6 +11,7 @@ export default function PostsShow(props: PageProps) {
 
   return (
     <div className="container">
+      <Link route="posts.index">&lsaquo; Go back to posts listing</Link>
       <div>
         <h1>{post.title}</h1>
       </div>
