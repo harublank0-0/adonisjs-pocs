@@ -12,7 +12,13 @@ export default class PostsController {
   }
 
   async show({ inertia, params }: HttpContext) {
-    const post = await Post.query().where('id', params.id).preload('user').firstOrFail()
+    const post = await Post.query()
+      .where('id', params.id)
+      .preload('user')
+      .preload('comments', (query) => {
+        query.preload('user').orderBy('createdAt', 'asc')
+      })
+      .firstOrFail()
 
     return inertia.render('posts/show', {
       post: PostTransformer.transform(post),

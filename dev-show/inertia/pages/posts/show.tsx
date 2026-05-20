@@ -27,6 +27,29 @@ export default function Show(props: PageProps) {
         </div>
 
         <div className="post-summary">{post.summary}</div>
+
+        <div className="post-comments">
+          <h2>Comments</h2>
+
+          {post.comments && post.comments.length > 0 ? (
+            post.comments.map((comment) => (
+              <div key={comment.id} className="comment-item">
+                <p>{comment.content}</p>
+                <div className="comment-meta">
+                  By {comment.author.fullName} on{' '}
+                  {comment.createdAt &&
+                    new Date(comment.createdAt).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No comments yet.</p>
+          )}
+        </div>
       </div>
     </div>
   )

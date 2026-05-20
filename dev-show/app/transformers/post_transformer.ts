@@ -1,12 +1,14 @@
 import { BaseTransformer } from '@adonisjs/core/transformers'
 import Post from '#models/post'
 import UserTransformer from './user_transformer.ts'
+import CommentTransformer from './comment_transformer.ts'
 
 export default class PostTransformer extends BaseTransformer<Post> {
   toObject() {
     return {
       ...this.pick(this.resource, ['id', 'title', 'url', 'summary', 'createdAt']),
       author: UserTransformer.transform(this.resource.user),
+      comments: CommentTransformer.transform(this.whenLoaded(this.resource.comments))?.depth(2),
     }
   }
 }
