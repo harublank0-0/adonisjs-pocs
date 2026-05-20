@@ -12,6 +12,21 @@ export default defineConfig({
 
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: 'auto',
+
+      workbox: {
+        navigateFallback: null,
+
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pages',
+            },
+          },
+        ],
+      },
 
       manifest: {
         name: 'Dev Show',

@@ -12,6 +12,7 @@
   "include": [
     "./**/*.ts",
     "./**/*.tsx",
+    "../*.d.ts",
     "../.adonisjs/client/**/*.ts",
     "../.adonisjs/server/**/*.ts"
   ]

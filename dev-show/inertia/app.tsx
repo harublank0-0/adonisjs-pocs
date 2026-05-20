@@ -7,7 +7,12 @@ import { createRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
 import { TuyauProvider } from '@adonisjs/inertia/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
+import { registerSW } from 'virtual:pwa-register'
 const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
+
+registerSW({
+  immediate: true,
+})
 
 createInertiaApp({
   title: (title) => (title ? `${title} - ${appName}` : appName),
