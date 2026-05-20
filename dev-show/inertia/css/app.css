@@ -183,14 +183,16 @@ textarea[data-invalid='true'] + div {
   margin-top: 2px;
 }
 
-button {
+button, .button{
   background: var(--gray-12);
   color: #fff;
   border: none;
   padding: 10px;
   font-weight: 500;
+  border-radius: 4px;
 }
-button:hover {
+
+button:hover, .button:hover {
   background: var(--gray-10);
 }
 
@@ -344,3 +346,4 @@ button:hover {
   align-items: center;
   margin-bottom: 20px;
 }
+
