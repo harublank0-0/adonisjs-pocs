@@ -19,6 +19,18 @@ export interface Registry {
       errorResponse: unknown
     }
   }
+  'posts.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/posts'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['index']>>>
+    }
+  }
   'new_account.create': {
     methods: ["GET","HEAD"]
     pattern: '/signup'
