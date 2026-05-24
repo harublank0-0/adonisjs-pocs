@@ -8,6 +8,8 @@ export type ScannedRoutes = {
     'posts.create': { paramsTuple?: []; params?: {} }
     'posts.index': { paramsTuple?: []; params?: {} }
     'posts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'posts.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'posts.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'posts.store': { paramsTuple?: []; params?: {} }
     'comments.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'new_account.create': { paramsTuple?: []; params?: {} }
@@ -21,6 +23,7 @@ export type ScannedRoutes = {
     'posts.create': { paramsTuple?: []; params?: {} }
     'posts.index': { paramsTuple?: []; params?: {} }
     'posts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'posts.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
   }
@@ -29,8 +32,12 @@ export type ScannedRoutes = {
     'posts.create': { paramsTuple?: []; params?: {} }
     'posts.index': { paramsTuple?: []; params?: {} }
     'posts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'posts.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
+  }
+  PUT: {
+    'posts.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   POST: {
     'posts.store': { paramsTuple?: []; params?: {} }

@@ -30,6 +30,18 @@ const routes = {
     tokens: [{"old":"/posts/:id","type":0,"val":"posts","end":""},{"old":"/posts/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['posts.show']['types'],
   },
+  'posts.edit': {
+    methods: ["GET","HEAD"],
+    pattern: '/posts/:id/edit',
+    tokens: [{"old":"/posts/:id/edit","type":0,"val":"posts","end":""},{"old":"/posts/:id/edit","type":1,"val":"id","end":""},{"old":"/posts/:id/edit","type":0,"val":"edit","end":""}],
+    types: placeholder as Registry['posts.edit']['types'],
+  },
+  'posts.update': {
+    methods: ["PUT"],
+    pattern: '/posts/:id',
+    tokens: [{"old":"/posts/:id","type":0,"val":"posts","end":""},{"old":"/posts/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['posts.update']['types'],
+  },
   'posts.store': {
     methods: ["POST"],
     pattern: '/posts/create',

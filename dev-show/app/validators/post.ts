@@ -8,3 +8,8 @@ export const createPostValidator = vine.create({
   url: vine.string().url(),
   summary: vine.string().minLength(80).maxLength(500),
 })
+
+/**
+ * Same validation rules as creating a post
+ */
+export const updatePostValidator = vine.create(createPostValidator.schema.clone())

@@ -18,6 +18,10 @@ router.get('/posts', [controllers.Posts, 'index']).use(middleware.auth())
 
 router.get('/posts/:id', [controllers.Posts, 'show'])
 
+router.get('/posts/:id/edit', [controllers.Posts, 'edit']).use(middleware.auth())
+
+router.put('/posts/:id', [controllers.Posts, 'update']).use(middleware.auth())
+
 router.post('/posts/create', [controllers.Posts, 'store'])
 
 router.post('/posts/:id/comments', [controllers.Comments, 'store']).use(middleware.auth())
