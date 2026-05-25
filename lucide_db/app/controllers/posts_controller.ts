@@ -1,3 +1,4 @@
+import db from '@adonisjs/lucid/services/db'
 import Post from '#models/post'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -5,13 +6,30 @@ export default class PostsController {
   /**
    * Display a list of resource
    */
-  async index({ response }: HttpContext) {
+  async index({ request, response }: HttpContext) {
+    const page = request.input('page', 1)
+    const limit = 20
     /**
      * Fetch all posts ordered by creation date.
      * Returns an array of Post model instances.
      */
 
-    const posts = await Post.query().orderBy('created_at', 'desc')
+    /**
+     * Paginate posts with 20 records per page
+     * Always use orderBy to ensure consistent pagination
+     */
+
+    const posts = await Post.query()
+      .where('status', 'published')
+      .orderBy('created_at', 'desc')
+      .paginate(page, limit)
+
+    /**
+     * Set the base URL for pagination links
+     * This enables generating correct URLs in meta data
+     */
+
+    posts.baseUrl('/posts')
 
     return response.json(posts)
   }
@@ -24,15 +42,50 @@ export default class PostsController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request, response }: HttpContext) {
+  async store({ request, response, auth }: HttpContext) {
+    // /**
+    //  * Create a new post using the create method
+    //  * Lucide automatically sets `created_at` and `updated_at`
+    //  */
+    // const post = await Post.create({
+    //   title: request.input('title'),
+    //   content: request.input('content'),
+    //   status: 'draft',
+    // })
+    //
+    // return response.created(post)
+
     /**
-     * Create a new post using the create method
-     * Lucide automatically sets `created_at` and `updated_at`
+     * Wrap operations in transaction.
+     * If any operation throws, all changes roll back automatically
      */
-    const post = await Post.create({
-      title: request.input('title'),
-      content: request.input('content'),
-      status: 'draft',
+    const post = await db.transaction(async (trx) => {
+      const user = auth.getUserOrFail()
+
+      /**
+       * Create the post using the transaction.
+       * All model operations within this callback use the same transaction
+       */
+      const post = new Post()
+      post.title = request.input('title')
+      post.content = request.input('content')
+
+      post.useTransaction(trx)
+
+      await post.save()
+
+      /**
+       * Update user's post counte.
+       * This shares the same transaction, ensuring both operations
+       * succeed together or fail together
+       */
+      user.useTransaction(trx)
+
+      user.postCount = user.postCount + 1
+
+      await user.save()
+
+      return post
     })
 
     return response.created(post)
@@ -69,6 +122,7 @@ export default class PostsController {
       .merge({
         title: request.input('title'),
         content: request.input('content'),
+        status: request.input('status') ?? 'draft',
       })
       .save()
 
