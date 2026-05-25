@@ -36,6 +36,36 @@ const routes = {
     tokens: [{"old":"/login","type":0,"val":"login","end":""}],
     types: placeholder as Registry['session.store']['types'],
   },
+  'posts.store': {
+    methods: ["POST"],
+    pattern: '/posts',
+    tokens: [{"old":"/posts","type":0,"val":"posts","end":""}],
+    types: placeholder as Registry['posts.store']['types'],
+  },
+  'posts.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/posts',
+    tokens: [{"old":"/posts","type":0,"val":"posts","end":""}],
+    types: placeholder as Registry['posts.index']['types'],
+  },
+  'posts.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/posts/:id',
+    tokens: [{"old":"/posts/:id","type":0,"val":"posts","end":""},{"old":"/posts/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['posts.show']['types'],
+  },
+  'posts.update': {
+    methods: ["PUT"],
+    pattern: '/posts/:id',
+    tokens: [{"old":"/posts/:id","type":0,"val":"posts","end":""},{"old":"/posts/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['posts.update']['types'],
+  },
+  'posts.destroy': {
+    methods: ["DELETE"],
+    pattern: '/posts/:id',
+    tokens: [{"old":"/posts/:id","type":0,"val":"posts","end":""},{"old":"/posts/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['posts.destroy']['types'],
+  },
   'session.destroy': {
     methods: ["POST"],
     pattern: '/logout',

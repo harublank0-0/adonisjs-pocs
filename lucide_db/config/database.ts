@@ -1,7 +1,9 @@
+import env from '#start/env'
 import app from '@adonisjs/core/services/app'
 import { defineConfig } from '@adonisjs/lucid'
 
 const dbConfig = defineConfig({
+  prettyPrintDebugQueries: true,
   /**
    * Default connection used for all queries.
    */
@@ -37,6 +39,7 @@ const dbConfig = defineConfig({
          */
         paths: ['database/migrations'],
       },
+      debug: env.get('NODE_ENV') === 'development',
     },
 
     /**
