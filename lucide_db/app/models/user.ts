@@ -2,7 +2,7 @@ import { UserSchema } from '#database/schema'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
-import { beforeSave, hasMany } from '@adonisjs/lucid/orm'
+import { beforeSave, column, hasMany } from '@adonisjs/lucid/orm'
 import Post from './post.ts'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 
@@ -14,6 +14,19 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
     }
     return `${first.slice(0, 2)}`.toUpperCase()
   }
+
+  /**
+   * Override password column to exclude from all serialization
+   * Setting serializes to null prevents this field from appearing in JSON.
+   */
+  @column({ serializeAs: null })
+  declare password: string
+
+  /** override firstName column to rename in JSON output.
+   * The database column is snake_case but json uses camelCase
+   */
+  @column({ serializeAs: 'firstName' })
+  declare firstName: string
 
   /**
    * Define a one-to-many relationship.
