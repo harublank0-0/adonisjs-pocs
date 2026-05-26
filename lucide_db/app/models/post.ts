@@ -1,8 +1,16 @@
 import { PostSchema } from '#database/schema'
-import { beforeFind, afterCreate } from '@adonisjs/lucid/orm'
+import { beforeFind, afterCreate, belongsTo } from '@adonisjs/lucid/orm'
 import { DatabaseQueryBuilder } from '@adonisjs/lucid/database'
+import User from './user.ts'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Post extends PostSchema {
+  /**
+   * Define the inverse relationship
+   * Each post belongs to one user
+   */
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>
   /**
    * Automatically exclude sofe-deleted posts from queries
    * This hook modifies every find query to filter deleted records.

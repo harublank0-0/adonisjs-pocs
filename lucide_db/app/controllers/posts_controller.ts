@@ -14,15 +14,30 @@ export default class PostsController {
      * Returns an array of Post model instances.
      */
 
-    /**
-     * Paginate posts with 20 records per page
-     * Always use orderBy to ensure consistent pagination
-     */
-
     const posts = await Post.query()
       .where('status', 'published')
+      /**
+       * Preload the user relationshiop for all posts.
+       * This executes two queries total: one for posts, one for all users
+       */
+      .preload('user')
       .orderBy('created_at', 'desc')
+      /**
+       * Paginate posts with 20 records per page
+       * Always use orderBy to ensure consistent pagination
+       */
       .paginate(page, limit)
+    /**
+     * Load user and their profile, plus all comments with their authors
+     * Nested preloads work for any depth or relationships.
+     */
+    // const postsNestedRel = await Post.query()
+    //   .preload('user', (query) => {
+    //     query.preload('profile')
+    //   })
+    //   .preload('comments', (query) => {
+    //     query.preload('author')
+    //   })
 
     /**
      * Set the base URL for pagination links

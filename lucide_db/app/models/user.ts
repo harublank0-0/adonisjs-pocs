@@ -2,7 +2,9 @@ import { UserSchema } from '#database/schema'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
-import { beforeSave } from '@adonisjs/lucid/orm'
+import { beforeSave, hasMany } from '@adonisjs/lucid/orm'
+import Post from './post.ts'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class User extends compose(UserSchema, withAuthFinder(hash)) {
   get initials() {
@@ -12,6 +14,13 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
     }
     return `${first.slice(0, 2)}`.toUpperCase()
   }
+
+  /**
+   * Define a one-to-many relationship.
+   * A user can have multiple posts.
+   */
+  @hasMany(() => Post)
+  declare posts: HasMany<typeof Post>
 
   /**
    * Hash the password before saving to the database.
